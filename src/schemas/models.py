@@ -5,8 +5,8 @@ from pydantic import BaseModel, Field
 class RegistroHistorial(BaseModel):
     evento: Annotated[str, Field(description="Tipo de evento: Entrega, Devolución, Mantenimiento")]
     fecha: Annotated[str, Field(description="Fecha y hora del evento")]
-    km_registro: Annotated[int, Field(ge=0, description="Kilometraje registrado en el evento")]
-    detalles: Annotated[Optional[str], Field(default=None, description="Detalles adicionales del evento")]
+    km_realizados: Annotated[Optional[int], Field(ge=0, description="Kilometraje registrado en el evento")] # Se registra en evento de devolución o mantenimiento
+    detalles: Annotated[Optional[str], Field(default=None, description="Detalles adicionales del evento")] # Se puede registrar información adicional cuando se devuelve o realiza mantenimiento, como observaciones o comentarios.
 
 # Modelo para la creación y actualización de vehículos
 class VehiculoBase(BaseModel):
@@ -16,7 +16,7 @@ class VehiculoBase(BaseModel):
     halcon: Annotated[int, Field(ge=0, description="Número identificación interna")]
     km_actual: Annotated[int, Field(ge=0, default=0, description="Kilometraje actual del vehículo")]
     estado: Annotated[str, Field(default="Disponible", description="Estado: Disponible, En Servicio, En Mantenimiento")]
-    km_inicio_turno: Annotated[Optional[int], Field(ge=0, default=None, description="Kilometraje al inicio del turno")]
+    km_inicio_servicio_o_mantenimiento: Annotated[int, Field(ge=0, description="Kilometraje al inicio del servicio")] # Se registra en evento de entrega
     historial: Annotated[List[RegistroHistorial], Field(default=[], description="Historial de eventos del vehículo")]
 
 
