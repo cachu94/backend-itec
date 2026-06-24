@@ -111,33 +111,31 @@ async def get_vehiculos():
 
 # Obtenemos un vehículo por su ID
 @router.get("/{id}", response_model=VehiculoResponse, responses={
-    200: {"description": "Vehículo encontrado",
-          "content": {"application/json": {"example": {
-              "id": 1,
-              "patente": "AA134JP",
-              "marca": "Renault",
-              "modelo": "Clio",
-              "halcon": 5,
-              "km_actual": 150100,
-              "estado": "Disponible",
-              "km_inicio_servicio_o_mantenimiento": 150000,
-              "historial": [
-                  {
-                      "evento": "Entrega",
-                      "fecha": "2026-06-22 07:00:00",
-                      "km_realizados": None,
-                      "detalles": None
-                  },
-                  {
-                      "evento": "Devolución",
-                      "fecha": "2026-06-22 15:00:00",
-                      "km_realizados": 100,
-                      "detalles": "El vehículo fue devuelto en buen estado."
-                  }
-              ]
-          }}}},
-    404: {"description": "Vehículo no encontrado",
-          "content": {"application/json": {"example": {"detail": "Vehículo no encontrado"}}}}
+    200: {"description": "Vehículo encontrado","content": {"application/json": {"example": {
+            "id": 1,
+            "patente": "AA134JP",
+            "marca": "Renault",
+            "modelo": "Clio",
+            "halcon": 5,
+            "km_actual": 150100,
+            "estado": "Disponible",
+            "km_inicio_servicio_o_mantenimiento": 150000,
+            "historial": [
+                {
+                    "evento": "Entrega",
+                    "fecha": "2026-06-22 07:00:00",
+                    "km_realizados": None,
+                    "detalles": None
+                },
+                {
+                    "evento": "Devolución",
+                    "fecha": "2026-06-22 15:00:00",
+                    "km_realizados": 100,
+                    "detalles": "El vehículo fue devuelto en buen estado."
+                }
+            ]
+        }}}},
+    404: {"description": "Vehículo no encontrado","content": {"application/json": {"example": {"detail": "Vehículo no encontrado"}}}}
 })
 async def get_vehiculo_id(id: Annotated[int, Path(ge=1, description="ID del vehículo")]):
     for vehiculo in db_vehiculos:
@@ -147,20 +145,18 @@ async def get_vehiculo_id(id: Annotated[int, Path(ge=1, description="ID del veh�
 
 # Creación o alta de un nuevo vehículo
 @router.post("/", status_code=201, response_model=VehiculoResponse, responses={
-    201: {"description": "Vehículo creado exitosamente",
-          "content": {"application/json": {"example": {
-              "id": 4,
-              "patente": "AB123CD",
-              "marca": "Toyota",
-              "modelo": "Corolla",
-              "halcon": 20,
-              "km_actual": 0,
-              "estado": "Disponible",
-              "km_inicio_servicio_o_mantenimiento": 0,
-              "historial": []
-          }}}},
-    400: {"description": "Error en la creación del vehículo",
-          "content": {"application/json": {"example": {"detail": "Error en la creación del vehículo"}}}}
+    201: {"description": "Vehículo creado exitosamente","content": {"application/json": {"example": {
+            "id": 4,
+            "patente": "AB123CD",
+            "marca": "Toyota",
+            "modelo": "Corolla",
+            "halcon": 20,
+            "km_actual": 0,
+            "estado": "Disponible",
+            "km_inicio_servicio_o_mantenimiento": 0,
+            "historial": []
+        }}}},
+    400: {"description": "Error en la creación del vehículo","content": {"application/json": {"example": {"detail": "Error en la creación del vehículo"}}}}
 })
 async def create_vehiculo(vehiculo: VehiculoBase):
     nuevo_id = max(v["id"] for v in db_vehiculos) + 1 if db_vehiculos else 1
@@ -180,41 +176,37 @@ async def create_vehiculo(vehiculo: VehiculoBase):
 
 # Actualización de estado y kilometraje de un vehículo
 @router.put("/{id}", response_model=VehiculoResponse, responses={
-    200: {"description": "Vehículo actualizado exitosamente",
-          "content": {"application/json": {"example": {
-              "id": 1,
-              "patente": "AA134JP",
-              "marca": "Renault",
-              "modelo": "Clio",
-              "halcon": 5,
-              "km_actual": 150200,
-              "estado": "En Servicio",
-              "km_inicio_servicio_o_mantenimiento": 150100,
-              "historial": [
-                  {
-                      "evento": "Entrega",
-                      "fecha": "2026-06-22 07:00:00",
-                      "km_realizados": None,
-                      "detalles": None
-                  },
-                  {
-                      "evento": "Devolución",
-                      "fecha": "2026-06-22 15:00:00",
-                      "km_realizados": 100,
-                      "detalles": "El vehículo fue devuelto en buen estado."
-                  },
-                  {
-                      "evento": "Mantenimiento",
-                      "fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                      "km_realizados": None,
-                      "detalles": None
-                  }
-              ]
-          }}}},
-    400: {"description": "Error en la actualización del vehículo",
-          "content": {"application/json": {"example": {"detail": "Error en la actualización del vehículo"}}}},
-    404: {"description": "Vehículo no encontrado",
-          "content": {"application/json": {"example": {"detail": "Vehículo no encontrado"}}}},
+    200: {"description": "Vehículo actualizado exitosamente","content": {"application/json": {"example": {
+            "id": 1,
+            "patente": "AA134JP",
+            "marca": "Renault",
+            "modelo": "Clio",
+            "halcon": 5,
+            "km_actual": 150200,
+            "estado": "En Servicio",
+            "km_inicio_servicio_o_mantenimiento": 150100,
+            "historial": [
+                {
+                    "evento": "Entrega",
+                    "fecha": "2026-06-22 07:00:00",
+                    "km_realizados": None,
+                    "detalles": None
+                },
+                {
+                    "evento": "Devolución",
+                    "fecha": "2026-06-22 15:00:00",
+                    "km_realizados": 100,
+                    "detalles": "El vehículo fue devuelto en buen estado."
+                },
+                {
+                    "evento": "Mantenimiento",
+                    "fecha": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                    "km_realizados": None,
+                    "detalles": None
+                }
+            ]}}}},
+    400: {"description": "Error en la actualización del vehículo","content": {"application/json": {"example": {"detail": "Error en la actualización del vehículo"}}}},
+    404: {"description": "Vehículo no encontrado","content": {"application/json": {"example": {"detail": "Vehículo no encontrado"}}}},
 })
 async def update_vehiculo(id: Annotated[int, Path(ge=1, description="ID del vehículo")], datos_vehiculo: VehiculoUpdate):
     for vehiculo in db_vehiculos:
@@ -226,7 +218,7 @@ async def update_vehiculo(id: Annotated[int, Path(ge=1, description="ID del veh�
 
             # CASO 1: ENTREGA (De disponible -> En Servicio)
             if estado_anterior == "Disponible" and estado_nuevo == "En Servicio":
-                vehiculo["km_inicio_servicio_o_mantenimiento"] = datos_vehiculo.km_actual
+                vehiculo["km_inicio_servicio_o_mantenimiento"] = vehiculo["km_actual"]  # Guardamos el km al inicio del servicio
                 vehiculo["historial"].append({
                     "evento": "Entrega",
                     "fecha": fecha_actual,
@@ -239,6 +231,7 @@ async def update_vehiculo(id: Annotated[int, Path(ge=1, description="ID del veh�
                 if datos_vehiculo.km_actual < vehiculo["km_inicio_servicio_o_mantenimiento"]:
                     raise HTTPException(status_code=400, detail="El kilometraje actual no puede ser menor al registrado previamente.")
                 km_realizados = datos_vehiculo.km_actual - vehiculo["km_inicio_servicio_o_mantenimiento"]
+                vehiculo["km_actual"] = datos_vehiculo.km_actual
                 vehiculo["historial"].append({
                     "evento": "Devolución",
                     "fecha": fecha_actual,
@@ -252,6 +245,7 @@ async def update_vehiculo(id: Annotated[int, Path(ge=1, description="ID del veh�
                     if datos_vehiculo.km_actual < vehiculo["km_inicio_servicio_o_mantenimiento"]:
                         raise HTTPException(status_code=400, detail="El kilometraje actual no puede ser menor al registrado previamente.")
                     km_realizados = datos_vehiculo.km_actual - vehiculo["km_inicio_servicio_o_mantenimiento"]
+                    vehiculo["km_actual"] = datos_vehiculo.km_actual
                 else:
                     km_realizados = None  # No se registra kilometraje si no estaba en servicio
 
@@ -266,16 +260,16 @@ async def update_vehiculo(id: Annotated[int, Path(ge=1, description="ID del veh�
             else:
                 raise HTTPException(status_code=400, detail=f"Transición de estado no permitida. Estado anterior: {estado_anterior}, Estado nuevo: {estado_nuevo}")
 
+            vehiculo["estado"] = estado_nuevo
+            
             return vehiculo
         
     raise HTTPException(status_code=404, detail="Vehículo no encontrado")
 
 # Eliminación de un vehículo de la flota
 @router.delete("/{id}", response_model=MensajeResponse, responses={
-    200: {"description": "Vehículo eliminado exitosamente",
-          "content": {"application/json": {"example": {"detail": "Vehículo eliminado exitosamente"}}}},
-    404: {"description": "Vehículo no encontrado",
-          "content": {"application/json": {"example": {"detail": "Vehículo no encontrado"}}}},
+    200: {"description": "Vehículo eliminado exitosamente","content": {"application/json": {"example": {"detail": "Vehículo eliminado exitosamente"}}}},
+    404: {"description": "Vehículo no encontrado","content": {"application/json": {"example": {"detail": "Vehículo no encontrado"}}}},
 })
 async def delete_vehiculo(id: Annotated[int, Path(ge=1, description="ID del vehículo")]):
     for v in db_vehiculos:
