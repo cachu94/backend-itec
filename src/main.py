@@ -1,12 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from src.database import Base, engine
+from src import models
 from src.routers.router import router as vehiculos_router
 
-app = FastAPI(
-    title="API de Gestión de Vehículos GLP",
-    description="API para el control de entrega, devolución y mantenimiento de vehículos GLP.",
-    version="1.0.0",
-)
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI()
 
 origins = [
     "http://localhost:5173",
@@ -15,10 +15,12 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-app.include_router(vehiculos_router)
+app.include_router(vehiculos_router,
+                prefix="/movil",
+                tags=["MOVILES"])
